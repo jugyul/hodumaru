@@ -1,0 +1,67 @@
+module ADDR_decoder(
+
+
+);
+
+
+input clk, rst, 
+input [15:0] iADDR;
+input [31:0] W_DATA;
+
+output W_EN;
+output R_EN;
+
+output reg [15:0]
+output reg [15:0]
+output reg [15:0]
+
+output reg [31:0] to_synapse_DATA;
+output reg [31:0] to_SOMA_DATA;
+output reg [31:0] to_STDP_DATA;
+
+
+always @(posedge clk or negedge rst) begin
+    
+    //init
+    if (!rst && iADDR[15] == 1) begin
+        
+        //synapse
+        if ( iADDR[14:13] == 2'b01 ) begin
+            to_synapse_DATA <= W_DATA; //W_DATA : weight 32'b
+
+        end
+
+        //SOMA
+        else if ( iADDR[14:13] == 2'b10 ) begin
+            to_SOMA_DATA <= W_DATA;
+
+
+        end
+
+        //STDP
+        else if ( iADDR[14:13] == 2'b11 ) begin
+            to_STDP_DATA <= W_DATA;
+        
+        end
+
+
+    end
+
+
+    else begin
+
+    end
+        
+    end
+
+    else begin
+
+    end
+
+
+end
+
+
+
+
+endmodule
